@@ -1,9 +1,9 @@
 import React from "react";
 
-const TrelloModal = () => {
+const TrelloUpdateColumn = () => {
     return (
         <div></div>
     )
 }
 
-export default TrelloModal;
+export default TrelloUpdateColumn;

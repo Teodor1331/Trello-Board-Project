@@ -1,5 +1,5 @@
 import React from "react";
-import TrelloCard from "./TrelloCard"
+import TrelloCard from "../CardComponents/TrelloCard"
 
 const TrelloColumn = ({title}) => {
     return(
