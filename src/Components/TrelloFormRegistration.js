@@ -1,5 +1,6 @@
 import { useState } from 'react';
- 
+import { dataBase } from '../Database'; 
+
 import {
   useNavigate 
 } from "react-router-dom";
@@ -24,12 +25,19 @@ const TrelloForm = () => {
     setSubmitted(false);
   };
  
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
+    event.preventDefault()
     if (name === '' || password === '') {
       setError(true);
     } else {
       setSubmitted(true);
       setError(false);
+
+      await dataBase.users.add({
+        username : name,
+        password: password
+      })  
+
       navigate("/login")
     }
   };
