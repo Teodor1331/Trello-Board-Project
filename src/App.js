@@ -1,38 +1,41 @@
-import React, { Component, useState } from "react";
-import ReactDOM from "react-dom";
-import NavBar from "./Components/NavBar";
+import React from "react";
 
-import RegisterPage from "./Pages/RegisterPage";
+import BasePage from "./Pages/BasePage";
 import HomePage from "./Pages/HomePage";
+import ErrorPage from "./Pages/ErrorPage";
 import LoginPage from "./Pages/LoginPage";
+import RegisterPage from "./Pages/RegisterPage";
 import BoardsPage from "./Pages/BoardsPage";
 
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-} from "react-router-dom";
+import AuthenticationContext from "./Authentication";
+
+import { useState } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import './App.css';
 
-class App extends React.Component {
-  render() {
-    return (
-      <React.Fragment>
-        <div>
-          <NavBar/>
-        </div>     
+const App = () => {
+  const [user, setUser] = useState(undefined);
+
+  return (
+    <React.Fragment>
+      <AuthenticationContext.Provider value = {{user: user, setUser: setUser}}>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element = {<HomePage />} />
-            <Route path='/register' element = { <RegisterPage /> } />
-            <Route path="/login" element = {<LoginPage />} />
-            <Route path="/boards" element = {<BoardsPage />} />
+            <Route path="/" element = {<BasePage />}>
+              <Route index element = {<HomePage />} />
+
+              <Route path='/register' element = { <RegisterPage /> } />
+              <Route path="/login" element = {<LoginPage />} />
+              <Route path="/boards" element = {<BoardsPage />} />
+              <Route path="*" element = {<ErrorPage />} />
+            </Route>
           </Routes>
         </BrowserRouter>
-        </React.Fragment>  
-    )
-  }
+      </AuthenticationContext.Provider>
+    </React.Fragment>  
+  )
 }
 
 export default App;
