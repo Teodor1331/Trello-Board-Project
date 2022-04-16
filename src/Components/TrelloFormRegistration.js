@@ -1,5 +1,9 @@
 import { useState } from 'react';
  
+import {
+  useNavigate 
+} from "react-router-dom";
+
 const TrelloForm = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -7,6 +11,8 @@ const TrelloForm = () => {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
  
+  const navigate = useNavigate();
+
   const handleName = (event) => {
     setName(event.target.value);
     setSubmitted(false);
@@ -19,12 +25,12 @@ const TrelloForm = () => {
   };
  
   const handleSubmit = (event) => {
-    event.preventDefault();
     if (name === '' || password === '') {
       setError(true);
     } else {
       setSubmitted(true);
       setError(false);
+      navigate("/login")
     }
   };
  
@@ -69,8 +75,11 @@ const TrelloForm = () => {
         <label className="label">Password</label>
         <br></br>
         <input onChange={handlePassword} className="input" value={password} type="password"></input>
-        <br></br>
-        <button onClick={handleSubmit} className="btn" type="submit">Submit</button>
+        <div className = "container">
+          <br></br>
+          <button onClick={handleSubmit} className="btn" type="submit">Submit</button>
+        </div>
+        
       </form>
     </div>
   );
