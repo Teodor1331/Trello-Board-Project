@@ -29,6 +29,8 @@ const TrelloForm = () => {
     event.preventDefault()
     const currentUser = await dataBase.users.where({username: name}).first();
     if (currentUser) {
+        currentUser.isLogged = 1;
+        console.log(currentUser);
         setSubmitted(true);
         setError(false);
         navigate("/");

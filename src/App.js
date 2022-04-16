@@ -21,8 +21,7 @@ class App extends React.Component {
       <React.Fragment>
         <div>
           <NavBar/>
-        </div>
-      
+        </div>     
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage />} />

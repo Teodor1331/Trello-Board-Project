@@ -35,7 +35,8 @@ const TrelloForm = () => {
 
       await dataBase.users.add({
         username : name,
-        password: password
+        password: password,
+        isLogged: 0
       })  
 
       navigate("/login")
