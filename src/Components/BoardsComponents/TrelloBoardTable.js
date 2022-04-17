@@ -1,7 +1,10 @@
 import React from "react";
 import { Table } from "react-bootstrap";
+import BoardsPage from "../../Pages/BoardsPage";
+import TrelloBoardTableRow from "./TrelloBoardTableRow";
 
-const TrelloBoardTable = () => {
+const TrelloBoardTable = (props) => {
+    
     return (
         <React.Fragment>
             <Table>
@@ -10,8 +13,7 @@ const TrelloBoardTable = () => {
                     <tr>Board Operations</tr>
                 </thead>
                 <tbody>
-                    <tr></tr>
-                    <tr></tr>
+                        {props.boards.map(board => <TrelloBoardTableRow key={board.id} board = {board}/>)}
                 </tbody>
             </Table>
         </React.Fragment>
