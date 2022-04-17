@@ -4,7 +4,7 @@ export const dataBase = new Dexie('TrelloDatabase');
 
 // https://dexie.org/docs/Version/Version.stores()
 
-dataBase.version(2).stores({
+dataBase.version(3).stores({
     users: '++id, &username, &password, isLogged',
     boards: '++id, &title, user_id',
     columns: '++id, &title, index, board_id',
