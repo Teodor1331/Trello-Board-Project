@@ -45,7 +45,7 @@ const BoardsPage = () => {
     const addBoard = () => {
         const state2 = state
         const id = counter + 1
-        const title = "Title" + id
+        const title = "Board" + id
         const user_id = authentication.user.id
         state2.push({id : id, title : title, user_id : user_id})
         setState(state2)
