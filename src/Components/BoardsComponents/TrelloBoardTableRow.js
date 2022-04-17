@@ -3,11 +3,16 @@ import {Routes, Route} from "react-router";
 import Modal from 'react-bootstrap/Modal';
 import {Button, Form} from 'react-bootstrap';
 import {useState, useEffect } from 'react'
+import HomePage from "../../Pages/HomePage";
+import ErrorPage from "../../Pages/ErrorPage";
+import LoginPage from "../../Pages/LoginPage";
+import { useNavigate } from "react-router";
 
 
 
 const TrelloBoardTableRow = (props) => {
 
+    const navigate = useNavigate();
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -17,10 +22,14 @@ const TrelloBoardTableRow = (props) => {
         newName = value;
     }
 
+    const redirectBoard = () => {
+        navigate("/board/" + props.board.id);
+    }
+
     return (
         <React.Fragment>
             <div className="container" styles="display:flex;displayOrientation:row">
-                <p>{props.board.title}</p>
+                <button onClick = {redirectBoard}>{props.board.title}</button>
                 <button onClick = {() => props.onDelete(props.board.id)}>Delete</button>
                 <Button variant="primary" onClick={handleShow}>
                     Update
