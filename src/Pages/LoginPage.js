@@ -22,8 +22,10 @@ const LoginPage = () => {
 
         if (!user) {
             alert('User with this username does not exist!');
+            throw new Error('LoginError');
         } else if (user.password !== password) {
             alert('You entered wrong password! Try again!');
+            throw new Error('LoginError');
         }
 
         authentication.setUser(user);

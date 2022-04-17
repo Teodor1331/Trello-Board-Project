@@ -16,6 +16,7 @@ const RegisterPage = () => {
 
     if (current_user) {
       alert("A user with this username has already been registered!");
+      throw new Error('LoginError!');
     }
 
     await dataBase.users.add({
