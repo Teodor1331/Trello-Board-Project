@@ -25,17 +25,22 @@ const BoardsPage = () => {
         {id : 3, title : "Board3",  user_id : 0},
         {id : 4, title : "Board4",  user_id : 0}    
     ])
+    const [counter, setCounter] = useState(4)
 
+    const deleteBoard = (boardId) => {
+        const state2 = state.filter(x => x.id !== boardId)
+        setState(state2)
+        console.log(state)
+    }
 
     const addBoard = () => {
         const state2 = state
-        const id = state2.length + 1
+        const id = counter + 1
         const title = "Title" + id
         const user_id = authentication.user.id
         state2.push({id : id, title : title, user_id : user_id})
-        console.log("After push is: ")
-        console.log(state2)
         setState(state2)
+        setCounter(id)
     }  
     console.log(state)
 
@@ -53,7 +58,7 @@ const BoardsPage = () => {
                     </Col>
                 </Row>
                 { <div>
-                    {<TrelloBoardTable boards={state}/>}
+                    {<TrelloBoardTable boards={state} onDelete={deleteBoard}/>}
                 </div> }
             </Container>
         </React.Fragment>

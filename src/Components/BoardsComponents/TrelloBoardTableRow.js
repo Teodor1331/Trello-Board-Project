@@ -1,11 +1,14 @@
 import React from "react";
+import {Routes, Route} from "react-router";
 
 const TrelloBoardTableRow = (props) => {
-    console.log(props.board)
-
     return (
         <React.Fragment>
-            <tr>{props.board.title}</tr>
+            <div className="container" styles="display:flex;displayOrientation:row">
+                <p>{props.board.title}</p>
+                <button onClick = {() => props.onDelete(props.board.id)}>Delete</button>
+            </div>
+
         </React.Fragment>
     );
 }
