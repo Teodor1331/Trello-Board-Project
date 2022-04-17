@@ -13,6 +13,8 @@ import { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 
+import TrelloBoard from "./Components/BoardsComponents/TrelloBoard"
+
 import './App.css';
 
 const App = () => {
@@ -28,7 +30,14 @@ const App = () => {
 
               <Route path='/register' element = { <RegisterPage /> } />
               <Route path="/login" element = {<LoginPage />} />
+
               <Route path="/boards" element = {<BoardsPage />} />
+
+              <Route path = 'boards'>
+                <Route index element = {<BoardsPage />} />
+                <Route path = ':title' element = {<TrelloBoard />} />
+              </Route>
+
               <Route path="*" element = {<ErrorPage />} />
             </Route>
           </Routes>

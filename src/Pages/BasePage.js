@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Outlet } from "react-router-dom";
 
 import NavigationBar from "../Components/NavigationBar";
@@ -7,7 +6,8 @@ import NavigationBar from "../Components/NavigationBar";
 const BasePage = () => {
     return (
         <React.Fragment>
-            <NavigationBar /><Outlet /> 
+            <NavigationBar></NavigationBar>
+            <Outlet></Outlet> 
         </React.Fragment>
     );
 };
