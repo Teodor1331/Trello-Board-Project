@@ -33,6 +33,15 @@ const BoardsPage = () => {
         console.log(state)
     }
 
+    const updateBoard = (boardId, newName) => {
+        const state2 = state.filter(x => x.id !== boardId)
+        const state3 = state.filter(x => x.id === boardId)
+        state3[0].title = newName;
+        state2.push(state3[0]);
+        setState(state2)
+        console.log(state)
+    }
+
     const addBoard = () => {
         const state2 = state
         const id = counter + 1
@@ -58,7 +67,7 @@ const BoardsPage = () => {
                     </Col>
                 </Row>
                 { <div>
-                    {<TrelloBoardTable boards={state} onDelete={deleteBoard}/>}
+                    {<TrelloBoardTable boards={state} onDelete={deleteBoard} onUpdate={updateBoard}/>}
                 </div> }
             </Container>
         </React.Fragment>
