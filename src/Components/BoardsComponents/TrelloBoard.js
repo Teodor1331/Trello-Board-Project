@@ -13,15 +13,15 @@ const TrelloBoard = (props) => {
     const [state, setState] = useState(JSON.parse(localStorage.getItem('columns')));
     const [counter, setCounter] = useState(JSON.parse(localStorage.getItem('columnID')));
 
-    const deleteColumn = (boardId) => {
-        const state2 = state.filter(x => x.id !== boardId)
+    const deleteColumn = (columnId) => {
+        const state2 = state.filter(x => x.id !== columnId)
         setState(state2)
         console.log(state)
     }
 
-    const updateColumn = (boardId, newName) => {
-        const state2 = state.filter(x => x.id !== boardId)
-        const state3 = state.filter(x => x.id === boardId)
+    const updateColumn = (columnId, newName) => {
+        const state2 = state.filter(x => x.id !== columnId)
+        const state3 = state.filter(x => x.id === columnId)
         state3[0].title = newName;
         state2.push(state3[0]);
         setState(state2)
@@ -54,7 +54,8 @@ const TrelloBoard = (props) => {
     return (
         <div>
             <h1>{board}</h1>
-            <TrelloColumn></TrelloColumn>
+            <button onClick={addColumn}>Create New Column</button>
+            <TrelloColumn columns={state} onDelete={deleteColumn} onUpdate={updateColumn}></TrelloColumn>
         </div>
     )
 }

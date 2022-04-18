@@ -1,21 +1,18 @@
 import React from "react";
-import TrelloCard from "../CardComponents/TrelloCard"
+import TrelloColumnRow from "./TrelloColumnRow";
 
-const TrelloColumn = ({title}) => {
+const TrelloColumn = (props) => {
     return(
         <div style={styles.container}>
-        <h4>{title}</h4>
-        <TrelloCard />
+                {props.columns.map(column => <TrelloColumnRow key={column.id} column = {column} onDelete={props.onDelete} onUpdate={props.onUpdate} rerender={props.rerender}/>)}
         </div>
     )
 }
-
+            
 const styles = {
     container: {
-        backgroundColor: "gray",
-        borderRadius: 3,
-        width: 300,
-        padding: 8,
+        display: "flex",
+        flexDirection: "row",
     }
 }
 
