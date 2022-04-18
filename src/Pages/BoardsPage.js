@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
 
 import TrelloBoardTable from "../Components/BoardsComponents/TrelloBoardTable"
-import {useState, useEffect } from 'react'
+import {useState } from 'react'
 import authenticationContext from "../Authentication";
 import { useContext } from "react";
 

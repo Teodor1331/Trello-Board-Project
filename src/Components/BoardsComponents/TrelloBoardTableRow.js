@@ -1,11 +1,7 @@
 import React from "react";
-import {Routes, Route} from "react-router";
 import Modal from 'react-bootstrap/Modal';
 import {Button, Form} from 'react-bootstrap';
-import {useState, useEffect } from 'react'
-import HomePage from "../../Pages/HomePage";
-import ErrorPage from "../../Pages/ErrorPage";
-import LoginPage from "../../Pages/LoginPage";
+import {useState } from 'react'
 import { useNavigate } from "react-router";
 
 
