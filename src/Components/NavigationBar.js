@@ -1,6 +1,5 @@
 import React from "react";
 
-import { dataBase } from '../Database';
 import authenticationContext from "../Authentication";
 
 import { useState } from "react";

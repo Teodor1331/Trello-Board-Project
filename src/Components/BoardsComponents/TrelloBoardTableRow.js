@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import {Button, Form} from 'react-bootstrap';
 import {useState } from 'react'
 import { useNavigate } from "react-router";
+import { LinkContainer } from "react-router-bootstrap";
 
 
 
@@ -18,15 +19,15 @@ const TrelloBoardTableRow = (props) => {
         newName = value;
     }
 
-    const redirectBoard = () => {
-        navigate("/board/" + props.board.id);
-    }
+
 
     return (
         <React.Fragment>
             <div className="container" styles="display:flex;displayOrientation:row">
-                <button onClick = {redirectBoard}>{props.board.title}</button>
-                <button onClick = {() => props.onDelete(props.board.id)}>Delete</button>
+                <LinkContainer to={`/boards/${props.board.id}`}>
+                    <Button>{props.board.title}</Button>
+                </LinkContainer>
+                <Button onClick = {() => props.onDelete(props.board.id)}>Delete</Button>
                 <Button variant="primary" onClick={handleShow}>
                     Update
                 </Button>
@@ -47,7 +48,7 @@ const TrelloBoardTableRow = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={() => props.onUpdate(props.board.id, newName)}>
+                    <Button variant="primary" onClick={() => {props.onUpdate(props.board.id, newName); handleClose();}}>
                         Save Changes
                     </Button>
                     </Modal.Footer>

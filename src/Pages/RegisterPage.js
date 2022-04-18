@@ -1,7 +1,5 @@
 import React from "react";
 
-import { dataBase } from "../Database";
-
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
@@ -12,17 +10,13 @@ const RegisterPage = () => {
 
   const registerUser = async (event) => {
     event.preventDefault();
-    const current_user = await dataBase.users.where({username: username}).first();
 
-    if (current_user) {
+    if (Object.keys(localStorage).includes(username)) {
       alert("A user with this username has already been registered!");
       throw new Error('LoginError!');
     }
 
-    await dataBase.users.add({
-      username: username,
-      password: password
-    });
+    localStorage.setItem(username, password);
     navigate('/login');
   }
 

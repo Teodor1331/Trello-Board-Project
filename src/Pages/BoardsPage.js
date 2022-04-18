@@ -7,6 +7,8 @@ import TrelloBoardTable from "../Components/BoardsComponents/TrelloBoardTable"
 import {useState } from 'react'
 import authenticationContext from "../Authentication";
 import { useContext } from "react";
+import { useNavigate } from "react-router";
+
 
 
 const BoardsPage = () => {
@@ -20,6 +22,7 @@ const BoardsPage = () => {
         {id : 4, title : "Board4",  user_id : 0}    
     ])
     const [counter, setCounter] = useState(4)
+    const navigate = useNavigate();
 
     const deleteBoard = (boardId) => {
         const state2 = state.filter(x => x.id !== boardId)
@@ -46,6 +49,10 @@ const BoardsPage = () => {
         setCounter(id)
     }  
     console.log(state)
+
+    const redirectBoard = (boardId) => {
+        navigate("/board/" + boardId);
+    }
 
     return (
         <React.Fragment>

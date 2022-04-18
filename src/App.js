@@ -31,11 +31,9 @@ const App = () => {
               <Route path='/register' element = { <RegisterPage /> } />
               <Route path="/login" element = {<LoginPage />} />
 
-              <Route path="/boards" element = {<BoardsPage />} />
-
-              <Route path = 'boards'>
+              <Route path = "boards">
                 <Route index element = {<BoardsPage />} />
-                <Route path = ':title' element = {<TrelloBoard />} />
+                <Route path = ":id" element = {<TrelloBoard />} />
               </Route>
 
               <Route path="*" element = {<ErrorPage />} />

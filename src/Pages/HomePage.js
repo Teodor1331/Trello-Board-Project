@@ -1,10 +1,7 @@
 import React from "react";
 
-import { dataBase } from "../Database"
-import { useLiveQuery } from "dexie-react-hooks";
-
 const HomePage = () => {
-    const users = useLiveQuery(() => dataBase.users.toArray());
+    const users = Object.keys(localStorage)
 
     return (
         <React.Fragment>
@@ -12,7 +9,7 @@ const HomePage = () => {
                 <h1 className = {'mb-5'}>Home</h1>
                 <h2 className = {'mb-5'}>Users:</h2>
                 <ol>
-                {users?.map(user => <li key = {user.id}>{user.username}</li>)}
+                {users?.map(user => <li key = {user.id}>{user}</li>)}
                 </ol>
             </div>
         </React.Fragment>

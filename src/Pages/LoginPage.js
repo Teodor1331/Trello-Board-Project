@@ -1,6 +1,5 @@
 import React from "react";
 
-import { dataBase } from "../Database";
 
 import { useState } from "react";
 import { useContext } from "react";
@@ -18,17 +17,16 @@ const LoginPage = () => {
 
     const loginUser = async (event) => {
         event.preventDefault()
-        const user = await dataBase.users.where({username: username}).first()
 
-        if (!user) {
+        if (!Object.keys(localStorage).includes(username)) {
             alert('User with this username does not exist!');
             throw new Error('LoginError');
-        } else if (user.password !== password) {
+        } else if (localStorage.getItem(username) !== password) {
             alert('You entered wrong password! Try again!');
             throw new Error('LoginError');
         }
 
-        authentication.setUser(user);
+        authentication.setUser(username);
         navigate("/");
     }
 
