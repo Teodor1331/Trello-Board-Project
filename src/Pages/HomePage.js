@@ -1,7 +1,9 @@
 import React from "react";
 
 const HomePage = () => {
-    const users = Object.keys(localStorage)
+    const users = JSON.parse(localStorage.getItem('users'));
+    let usernames = [];
+    users.forEach(user => usernames.push(user.username));
 
     return (
         <React.Fragment>
@@ -9,7 +11,7 @@ const HomePage = () => {
                 <h1 className = {'mb-5'}>Home</h1>
                 <h2 className = {'mb-5'}>Users:</h2>
                 <ol>
-                {users?.map(user => <li key = {user.id}>{user}</li>)}
+                {usernames?.map(username => <li key = {username.id}>{username}</li>)}
                 </ol>
             </div>
         </React.Fragment>

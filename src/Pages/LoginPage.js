@@ -16,12 +16,22 @@ const LoginPage = () => {
     const authentication = useContext(authenticationContext);
 
     const loginUser = async (event) => {
-        event.preventDefault()
+        event.preventDefault();
 
-        if (!Object.keys(localStorage).includes(username)) {
+        const users = JSON.parse(localStorage.getItem('users'));
+        let usernames = []
+        let passwords = []
+        users.forEach(user => usernames.push(user.username));
+        users.forEach(user => passwords.push(user.password));
+        console.log(users);
+        console.log(usernames);
+
+        let indexUser = usernames.indexOf(username);
+
+        if (indexUser === -1) {
             alert('User with this username does not exist!');
             throw new Error('LoginError');
-        } else if (localStorage.getItem(username) !== password) {
+        } else if (passwords[indexUser] !== password) {
             alert('You entered wrong password! Try again!');
             throw new Error('LoginError');
         }

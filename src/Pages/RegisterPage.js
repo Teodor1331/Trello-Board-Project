@@ -11,12 +11,19 @@ const RegisterPage = () => {
   const registerUser = async (event) => {
     event.preventDefault();
 
-    if (Object.keys(localStorage).includes(username)) {
+    const users = JSON.parse(localStorage.getItem('users'));
+    let usernames = []
+    users.forEach(user => usernames.push(user.username));
+    console.log(usernames); 
+
+    if (usernames.includes(username)) {
       alert("A user with this username has already been registered!");
       throw new Error('LoginError!');
     }
 
-    localStorage.setItem(username, password);
+
+    users.push({username: username, password: password});
+    localStorage.setItem('users', JSON.stringify(users));
     navigate('/login');
   }
 
