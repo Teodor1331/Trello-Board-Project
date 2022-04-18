@@ -2,23 +2,91 @@ import React from "react";
 import Modal from 'react-bootstrap/Modal';
 import {Button, Form} from 'react-bootstrap';
 import {useState } from 'react'
-//import { LinkContainer } from "react-router-bootstrap";
-
-
+import TrelloCard from '../CardComponents/TrelloCard.js'
+import { Typography } from "@mui/material/";
 
 const TrelloColumnRow = (props) => {
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [showColumn, setShowColumn] = useState(false);
+    const handleColumnClose = () => setShowColumn(false);
+    const handleColumnShow = () => setShowColumn(true);
     let newName = '';
     const handleChange = (event) => {
         const value = event.target.value;
         newName = value;
     }
 
+    const [state, setState] = useState(JSON.parse(localStorage.getItem('cards')));
+    const [counter, setCounter] = useState(JSON.parse(localStorage.getItem('cardID')));
+
+    let newCardName = ''
+    let newCardText = ''
+
+    const newCardNameHandle = (event) => {
+        const value = event.target.value;
+        newCardName = value
+    }
+
+    const newCardTextHandle = (event) => {
+        const value = event.target.value;
+        newCardText = value
+    }
+
+    const addCard = (event) => {
+
+        console.log(newCardName)
+        console.log(newCardText)
+
+        const newState = state;
+        const newCounter = counter + 1;
+
+        console.log("Column ID: ", columnId)
+
+        newState.push({
+            id: newCounter,
+            title: newCardName,
+            text: newCardText,
+            column_id : columnId
+        });
+
+        setState(newState);
+        setCounter(newCounter);
+
+        console.log(newState)
+
+        localStorage.setItem('cards', JSON.stringify(state));
+        localStorage.setItem('cardID', JSON.stringify(counter));
+    }
+
+    const columnId = props.column.id
+
+    const deleteCard = (cardId) => {
+        const newState = state.filter(x => x.id !== cardId)
+        setState(newState)
+        console.log(state)
+    }
+
+    const updateCard = (cardId) => {
+        const card = state.filter(x => x.id === cardId)[0]
+
+        const newState = state.filter(x => x.id !== cardId)
+
+        card.title = newCardName
+        card.text = newCardText
+
+        newState.push(card);
+        setState(newState)
+        console.log(state)
+
+    }
+
+    const cards = state.filter(x => x.column_id === columnId)
+
     const styles = {
-        backgroundColor: "gray",
+        backgroundColor: "navy",
         borderRadius: 3,
         width: "25em",
         padding: 8,
@@ -26,14 +94,47 @@ const TrelloColumnRow = (props) => {
         flexDirection: "column",
         flexBasis: "300px",
         flexGrow: 0,
-        flexShrink: 0
+            flexShrink: 0
+        }
+
+    const columnTitle = {
+        color : "white"
     }
 
     return (
         <React.Fragment>
             <div className="md-5" style={styles}>
-                <Button>{props.column.title}</Button>
-                <Button onClick = {() => props.onDelete(props.column.id)}>Delete</Button>
+                <p style={columnTitle}>{props.column.title}</p>
+                <Button variant="success" onClick={handleColumnShow}>Add Card</Button>
+
+                <Modal show={showColumn} onHide = {handleColumnClose} aria-labelledby="contained-modal-title-vcenter"centered>
+
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            Card
+                        </Modal.Title>
+                    </Modal.Header>
+
+                    <Modal.Body>
+                        
+                        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                            <Form.Label>New card </Form.Label>
+                            <input type="text" onChange={newCardNameHandle} />
+                            <br/>
+                            <Form.Label>Task </Form.Label>
+                            <input type="textArea" id="newCardText" onChange={newCardTextHandle}/>
+                            <div className = {'d-flex justify-content-end'}>
+                            <Button variant="success" onClick={addCard} type="submit">Create New Card</Button>
+                        </div>
+                        </Form.Group>
+                     </Modal.Body>
+                     
+                    <Modal.Footer>
+                        <Button onClick={handleColumnClose}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
+
+                <Button variant = "danger" onClick = {() => props.onDelete(props.column.id)}>Delete</Button>
                 <Button variant="primary" onClick={handleShow}>
                     Update
                 </Button>
@@ -55,12 +156,19 @@ const TrelloColumnRow = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={() => {props.onUpdate(props.column.id, newName); handleClose();}}>
+                    <Button variant="success" onClick={() => {props.onUpdate(props.column.id, newName); handleClose();}}>
                         Save Changes
                     </Button>
                     </Modal.Footer>
                 </Modal>
+
+
+                <div>
+                    {cards.map(card => <TrelloCard key={card.id} card={card} onDelete={deleteCard} onUpdate={updateCard} newCardTextHandle={newCardTextHandle} newCardNameHandle={newCardNameHandle}/> )}
+                </div> 
             </div>
+
+            
 
         </React.Fragment>
     );

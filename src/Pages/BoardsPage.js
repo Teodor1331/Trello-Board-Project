@@ -14,12 +14,6 @@ import { useNavigate } from "react-router";
 const BoardsPage = () => {
     const authentication = useContext(authenticationContext);
 
-    /*const [state, setState] = useState([
-        {id : 1, title : "Board1",  user_id : 0},
-        {id : 2, title : "Board2",  user_id : 0},
-        {id : 3, title : "Board3",  user_id : 0},
-        {id : 4, title : "Board4",  user_id : 0}    
-    ])*/
 
     const [state, setState] = useState(JSON.parse(localStorage.getItem('boards')));
     const [counter, setCounter] = useState(JSON.parse(localStorage.getItem('boardID')));

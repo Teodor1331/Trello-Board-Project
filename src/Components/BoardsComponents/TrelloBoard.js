@@ -1,7 +1,7 @@
 import React from "react";
 import authenticationContext from "../../Authentication";
 import TrelloColumn from "../ColumnsComponents/TrelloColumn";
-
+import {Button} from 'react-bootstrap';
 import { useState, useContext } from "react";
 
 const TrelloBoard = (props) => {
@@ -54,7 +54,7 @@ const TrelloBoard = (props) => {
     return (
         <div>
             <h1>{board}</h1>
-            <button onClick={addColumn}>Create New Column</button>
+            <Button onClick={addColumn}>Create New Column</Button>
             <TrelloColumn columns={state} onDelete={deleteColumn} onUpdate={updateColumn}></TrelloColumn>
         </div>
     )
