@@ -1,6 +1,5 @@
 import React from "react";
 import TrelloColumnRow from "./TrelloColumnRow";
-import { useState, useContext } from "react";
 
 
 const TrelloColumn = (props) => {

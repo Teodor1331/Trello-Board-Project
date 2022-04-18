@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { dataBase } from '../Database'; 
 
-import {
-  useNavigate 
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const TrelloForm = () => {
   const [name, setName] = useState('');
