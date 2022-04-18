@@ -1,8 +1,5 @@
 import React from "react";
-import { Table } from "react-bootstrap";
-import BoardsPage from "../../Pages/BoardsPage";
 import TrelloBoardTableRow from "./TrelloBoardTableRow";
-import {Routes} from "react-router"
 
 const TrelloBoardTable = (props) => {
     

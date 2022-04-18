@@ -2,14 +2,12 @@ import React from "react";
 import Modal from 'react-bootstrap/Modal';
 import {Button, Form} from 'react-bootstrap';
 import {useState } from 'react'
-import { useNavigate } from "react-router";
 import { LinkContainer } from "react-router-bootstrap";
 
 
 
 const TrelloBoardTableRow = (props) => {
 
-    const navigate = useNavigate();
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -19,12 +17,10 @@ const TrelloBoardTableRow = (props) => {
         newName = value;
     }
 
-
-
     return (
         <React.Fragment>
             <div className="container" styles="display:flex;displayOrientation:row">
-                <LinkContainer to={`/boards/${props.board.id}`}>
+                <LinkContainer to={`/boards/${props.board.title}`}>
                     <Button>{props.board.title}</Button>
                 </LinkContainer>
                 <Button onClick = {() => props.onDelete(props.board.id)}>Delete</Button>

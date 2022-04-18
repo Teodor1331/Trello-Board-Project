@@ -1,38 +1,60 @@
 import React from "react";
-// import TrelloColumn from "../TrelloColumn"
+import authenticationContext from "../../Authentication";
+import TrelloColumn from "../ColumnsComponents/TrelloColumn";
+
+import { useState, useContext } from "react";
 
 const TrelloBoard = (props) => {
-    //const boards = useLiveQuery(() => dataBase.boards.toArray());
+    let address = (window.location.href).split('/');
+    const board = address[address.length - 1];
 
-    // const [boards, setBoards] = useState( [
-    //    {id : 1, title : "Board1"},
-    //    {id : 2, title : "Board2"},
-    //    {id : 3, title : "Board3"},
-    //    {id : 4, title : "Board4"}    
-    // ]) 
-    // const state = {boards: [
-    //     {id : 1, title : "Board1"},
-    //     {id : 2, title : "Board2"},
-    //     {id : 3, title : "Board3"},
-    //     {id : 4, title : "Board4"}    
-    // ]}
-   
-    /*const addBoard = () => {
-        let state2 = boards
-        const id = boards.lenght + 1
-        const title = "Title" + id
-        state2.push({id: id, title : title});
-        setBoards(state2)
-    }*/
+    const authentication = useContext(authenticationContext);
 
-    // addBoard()
-    // addBoard()
+    const [state, setState] = useState(JSON.parse(localStorage.getItem('columns')));
+    const [counter, setCounter] = useState(JSON.parse(localStorage.getItem('columnID')));
 
+    const deleteColumn = (boardId) => {
+        const state2 = state.filter(x => x.id !== boardId)
+        setState(state2)
+        console.log(state)
+    }
+
+    const updateColumn = (boardId, newName) => {
+        const state2 = state.filter(x => x.id !== boardId)
+        const state3 = state.filter(x => x.id === boardId)
+        state3[0].title = newName;
+        state2.push(state3[0]);
+        setState(state2)
+        console.log(state)
+    }
+
+    const addColumn = () => {
+        console.log(state);
+        console.log(counter);
+
+        const newState = state;
+        const newCounter = counter + 1;
+        const title = "Column" + newCounter;
+        const user_id = authentication.username;
+        newState.push({
+            id: newCounter,
+            title: title,
+            user_id: user_id
+        });
+        console.log(authentication.username);
+        console.log("newState", newState);
+        setState(newState);
+        setCounter(newCounter);
+        localStorage.setItem('columns', JSON.stringify(state));
+        localStorage.setItem('columnID', JSON.stringify(counter));
+        console.log(state);
+        console.log(counter);
+    }
 
     return (
         <div>
-            <h1>{props.board.title}</h1>
-            {/*<TrelloBoardTable boards = {boards}/>*/}
+            <h1>{board}</h1>
+            <TrelloColumn></TrelloColumn>
         </div>
     )
 }

@@ -12,17 +12,17 @@ import { useNavigate } from "react-router";
 
 
 const BoardsPage = () => {
-    // const boards = useLiveQuery(() => dataBase.boards.toArray());
     const authentication = useContext(authenticationContext);
 
-    const [state, setState] = useState([
+    /*const [state, setState] = useState([
         {id : 1, title : "Board1",  user_id : 0},
         {id : 2, title : "Board2",  user_id : 0},
         {id : 3, title : "Board3",  user_id : 0},
         {id : 4, title : "Board4",  user_id : 0}    
-    ])
-    const [counter, setCounter] = useState(4)
-    const navigate = useNavigate();
+    ])*/
+
+    const [state, setState] = useState(JSON.parse(localStorage.getItem('boards')));
+    const [counter, setCounter] = useState(JSON.parse(localStorage.getItem('boardID')));
 
     const deleteBoard = (boardId) => {
         const state2 = state.filter(x => x.id !== boardId)
@@ -40,20 +40,36 @@ const BoardsPage = () => {
     }
 
     const addBoard = () => {
-        const state2 = state
+        console.log(state);
+        console.log(counter);
+        /*const state2 = state
         const id = counter + 1
         const title = "Board" + id
         const user_id = authentication.user.id
         state2.push({id : id, title : title, user_id : user_id})
         setState(state2)
-        setCounter(id)
-    }  
-    console.log(state)
+        setCounter(id)*/
 
-    const redirectBoard = (boardId) => {
-        navigate("/board/" + boardId);
+        const newState = state;
+        const newCounter = counter + 1;
+        const title = "Board" + newCounter;
+        const user_id = authentication.username;
+        newState.push({
+            id: newCounter,
+            title: title,
+            user_id: user_id
+        });
+        console.log(authentication.username);
+        console.log("newState", newState);
+        setState(newState);
+        setCounter(newCounter);
+        localStorage.setItem('boards', JSON.stringify(state));
+        localStorage.setItem('boardID', JSON.stringify(counter));
+        console.log(state);
+        console.log(counter);
     }
 
+    console.log(state);
     return (
         <React.Fragment>
             <Container className = {'my-5'} >
