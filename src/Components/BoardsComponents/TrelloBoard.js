@@ -11,6 +11,7 @@ const TrelloBoard = (props) => {
     const authentication = useContext(authenticationContext);
 
     const [state, setState] = useState(JSON.parse(localStorage.getItem('columns')));
+    const [cardState, setCardState] = useState(JSON.parse(localStorage.getItem('cards')));
     const [counter, setCounter] = useState(JSON.parse(localStorage.getItem('columnID')));
 
     const deleteColumn = (columnId) => {

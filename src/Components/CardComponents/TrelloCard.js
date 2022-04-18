@@ -57,6 +57,9 @@ const TrelloCard = (props) => {
             <Button variant="danger" onClick={() => {props.onDelete(props.card.id)}}>
                 Delete
             </Button>
+            <Button variant="success" onClick={() => {props.onMove(props.card)}}>
+                Move
+            </Button>
             <br/>
         </Card>
     )

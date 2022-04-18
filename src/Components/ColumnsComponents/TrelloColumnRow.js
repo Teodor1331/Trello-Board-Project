@@ -3,10 +3,9 @@ import Modal from 'react-bootstrap/Modal';
 import {Button, Form} from 'react-bootstrap';
 import {useState } from 'react'
 import TrelloCard from '../CardComponents/TrelloCard.js'
-import { Typography } from "@mui/material/";
 
 const TrelloColumnRow = (props) => {
-
+    
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -21,6 +20,8 @@ const TrelloColumnRow = (props) => {
 
     const [state, setState] = useState(JSON.parse(localStorage.getItem('cards')));
     const [counter, setCounter] = useState(JSON.parse(localStorage.getItem('cardID')));
+    const columnId = props.column.id
+    let cards = state.filter(x => x.column_id === columnId)
 
     let newCardName = ''
     let newCardText = ''
@@ -61,7 +62,7 @@ const TrelloColumnRow = (props) => {
         localStorage.setItem('cardID', JSON.stringify(counter));
     }
 
-    const columnId = props.column.id
+    
 
     const deleteCard = (cardId) => {
         const newState = state.filter(x => x.id !== cardId)
@@ -83,7 +84,14 @@ const TrelloColumnRow = (props) => {
 
     }
 
-    const cards = state.filter(x => x.column_id === columnId)
+    const updateCardPosition = (card) => {
+        let newState = state.filter(x => x !== card)
+        let newCard = card
+        newCard.column_id += 1
+        newState.push(newCard)
+        setState(newState)
+        localStorage.setItem('cards', JSON.stringify(state));
+      };
 
     const styles = {
         backgroundColor: "navy",
@@ -164,7 +172,7 @@ const TrelloColumnRow = (props) => {
 
 
                 <div>
-                    {cards.map(card => <TrelloCard key={card.id} card={card} onDelete={deleteCard} onUpdate={updateCard} newCardTextHandle={newCardTextHandle} newCardNameHandle={newCardNameHandle}/> )}
+                    {cards.map(card => <TrelloCard onMove={updateCardPosition} key={card.id} card={card} onDelete={deleteCard} onUpdate={updateCard} newCardTextHandle={newCardTextHandle} newCardNameHandle={newCardNameHandle}/> )}
                 </div> 
             </div>
 
