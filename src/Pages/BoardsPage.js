@@ -4,15 +4,9 @@ import { Container } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
 
 import TrelloBoardTable from "../Components/BoardsComponents/TrelloBoardTable"
-import TrelloBoard from "../Components/BoardsComponents/TrelloBoard"
 import {useState, useEffect } from 'react'
-import { useLiveQuery } from "dexie-react-hooks";
-import { dataBase } from "../Database";
 import authenticationContext from "../Authentication";
 import { useContext } from "react";
-import Dexie from "dexie";
-import { functionExpression } from "@babel/types";
-import useForceUpdate from 'use-force-update';
 
 
 const BoardsPage = () => {
